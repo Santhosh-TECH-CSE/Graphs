@@ -1,0 +1,30 @@
+CODE ::---
+
+class Solution {
+public:
+    void dfsHelper(int node, vector<vector<int>> &adj,
+                   vector<bool> &visited, vector<int> &ans) {
+        visited[node] = true;
+        ans.push_back(node);
+
+        for (int n : adj[node]) {
+            if (!visited[n]) {
+                dfsHelper(n, adj, visited, ans);
+            }
+        }
+    }
+
+    vector<int> dfs(vector<vector<int>> &adj) {
+        vector<bool> visited(adj.size(), false);
+        vector<int> ans;
+
+        dfsHelper(0, adj, visited, ans);
+        return ans;
+    }
+};
+
+NOTE ::--
+
+WE USE ITERATIVE RECURSION FOR THE TRAVERSING OF THE GRAPH.
+
+STACK IS ALSO AN OPTION TO USE BUT THE ABOVE SOLUTION IS MORE MIRRORED TYPE OF BFS.
