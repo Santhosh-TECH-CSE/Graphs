@@ -1,0 +1,41 @@
+class Solution {
+public:
+    void dfs(vector<vector<int>>& image,
+             int oldColor,
+             int newColor,
+             int r, int c) {
+
+        // 1. Boundary check
+        if (r < 0 || c < 0 ||
+            r >= image.size() ||
+            c >= image[0].size())
+            return;
+
+        // 2. Color check
+        if (image[r][c] != oldColor)
+            return;
+
+        // 3. Fill the cell
+        image[r][c] = newColor;
+
+        // 4. DFS in 4 directions
+        dfs(image, oldColor, newColor, r + 1, c); // down
+        dfs(image, oldColor, newColor, r - 1, c); // up
+        dfs(image, oldColor, newColor, r, c + 1); // right
+        dfs(image, oldColor, newColor, r, c - 1); // left
+    }
+
+    vector<vector<int>> floodFill(vector<vector<int>>& image,
+                                  int sr, int sc,
+                                  int newColor) {
+
+        int oldColor = image[sr][sc];
+
+        // Edge case
+        if (oldColor == newColor)
+            return image;
+
+        dfs(image, oldColor, newColor, sr, sc);
+        return image;
+    }
+};
